@@ -12,9 +12,9 @@ import os.path as osp
 from .bases import BaseImageDataset
 
 
-class Sharkeg1(BaseImageDataset):
+class Shark01(BaseImageDataset):
     """
-    sharkeg1
+    Market1501
     Reference:
     Zheng et al. Scalable Person Re-identification: A Benchmark. ICCV 2015.
     URL: http://www.liangzheng.org/Project/project_reid.html
@@ -23,10 +23,10 @@ class Sharkeg1(BaseImageDataset):
     # identities: 1501 (+1 for background)
     # images: 12936 (train) + 3368 (query) + 15913 (gallery)
     """
-    dataset_dir = 'sharkeg1'
+    dataset_dir = 'shark01'
 
     def __init__(self, root='/home/haoluo/data', verbose=True, **kwargs):
-        super(Sharkeg1, self).__init__()
+        super(Shark01, self).__init__()
         self.dataset_dir = osp.join(root, self.dataset_dir)
         self.train_dir = osp.join(self.dataset_dir, 'bounding_box_train')
         self.query_dir = osp.join(self.dataset_dir, 'query')
@@ -39,7 +39,7 @@ class Sharkeg1(BaseImageDataset):
         gallery = self._process_dir(self.gallery_dir, relabel=False)
 
         if verbose:
-            print("=> Sharkeg1 loaded")
+            print("=> Market1501 loaded")
             self.print_dataset_statistics(train, query, gallery)
 
         self.train = train
@@ -63,22 +63,22 @@ class Sharkeg1(BaseImageDataset):
 
     def _process_dir(self, dir_path, relabel=False):
         img_paths = glob.glob(osp.join(dir_path, '*.jpg'))
-        pattern = re.compile(r'DJI_0043-leopard_sharks_1080p_part4_frame([\d]+)_([\d]+)')
+        pattern = re.compile(r'([\w-]+)_frame_([\d]+)_([\d]+)')
 
         pid_container = set()
         for img_path in img_paths:
-            _, pid = map(int, pattern.search(img_path).groups())
+            (videoname, frameId, pid) = pattern.search(img_path).groups()
             if pid == -1: continue  # junk images are just ignored
             pid_container.add(pid)
         pid2label = {pid: label for label, pid in enumerate(pid_container)}
 
         dataset = []
         for img_path in img_paths:
-            frameId, pid = map(int, pattern.search(img_path).groups())
+            (videoname, frameId, pid) = pattern.search(img_path).groups()
             if pid == -1: continue  # junk images are just ignored
-            # assert 0 <= pid <= 1501  # pid == 0 means background
-            # assert 1 <= frameId <= 6
-            # frameId -= 1  # index starts from 0
+            #assert 0 <= pid <= 1501  # pid == 0 means background
+            #assert 1 <= camid <= 6
+            #camid -= 1  # index starts from 0
             if relabel: pid = pid2label[pid]
             dataset.append((img_path, pid, frameId))
 

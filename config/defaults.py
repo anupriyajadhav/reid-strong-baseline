@@ -18,7 +18,7 @@ _C = CN()
 
 _C.MODEL = CN()
 # Using cuda or cpu for training
-_C.MODEL.DEVICE = "cpu"
+_C.MODEL.DEVICE = "cuda"
 # ID number of GPU
 _C.MODEL.DEVICE_ID = '0'
 # Name of backbone
@@ -26,7 +26,7 @@ _C.MODEL.NAME = 'resnet50'
 # Last stride of backbone
 _C.MODEL.LAST_STRIDE = 1
 # Path to pretrained model of backbone
-_C.MODEL.PRETRAIN_PATH = '/Users/anupriyaprakash/.cache/torch/checkpoints/resnet50-19c8e357.pth'
+_C.MODEL.PRETRAIN_PATH = '/home/anupriyapj/.cache/torch/checkpoints/resnet50-19c8e357.pth'
 # Use ImageNet pretrained model to initialize backbone or use self trained model to initialize the whole model
 # Options: 'imagenet' or 'self'
 _C.MODEL.PRETRAIN_CHOICE = 'imagenet'
@@ -68,9 +68,9 @@ _C.INPUT.PADDING = 10
 # -----------------------------------------------------------------------------
 _C.DATASETS = CN()
 # List of the dataset names for training, as present in paths_catalog.py
-_C.DATASETS.NAMES = ('sharkeg1')
+_C.DATASETS.NAMES = ('shark01')
 # Root directory where datasets should be used (and downloaded if not found)
-_C.DATASETS.ROOT_DIR = ("/Users/anupriyaprakash/Downloads/macbook-air-shweta/MS_CS_Fall_18_Studymaterial/3rd Sem/Project/reid-strong-baseline/data")
+_C.DATASETS.ROOT_DIR = ('/home/anupriyapj/Downloads/reid-strong-baseline/data')
 
 # -----------------------------------------------------------------------------
 # DataLoader

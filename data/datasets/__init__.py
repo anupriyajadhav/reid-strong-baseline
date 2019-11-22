@@ -8,16 +8,16 @@ from .dukemtmcreid import DukeMTMCreID
 from .market1501 import Market1501
 from .msmt17 import MSMT17
 from .veri import VeRi
-from .sharkeg1 import Sharkeg1
 from .dataset_loader import ImageDataset
+from .shark01 import Shark01
 
 __factory = {
+    'shark01': Shark01,
     'market1501': Market1501,
     # 'cuhk03': CUHK03,
     'dukemtmc': DukeMTMCreID,
     'msmt17': MSMT17,
     'veri': VeRi,
-    'sharkeg1': Sharkeg1,
 }
 
 
